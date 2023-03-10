@@ -89,6 +89,10 @@ func (t*implBoltStore) CompareAndSet(ctx context.Context) *store.CompareAndSetOp
 	return &store.CompareAndSetOperation{DataStore: t, Context: ctx}
 }
 
+func (t *implBoltStore) Touch(ctx context.Context) *store.TouchOperation {
+	return &store.TouchOperation{DataStore: t, Context: ctx}
+}
+
 func (t*implBoltStore) Remove(ctx context.Context) *store.RemoveOperation {
 	return &store.RemoveOperation{DataStore: t, Context: ctx}
 }
@@ -177,6 +181,10 @@ func (t *implBoltStore) UpdateRaw(ctx context.Context, fullKey []byte, cb func(e
 
 func (t*implBoltStore) CompareAndSetRaw(ctx context.Context, key, value []byte, ttlSeconds int, version int64) (bool, error) {
 	return true, t.SetRaw(ctx, key, value, ttlSeconds)
+}
+
+func (t *implBoltStore) TouchRaw(ctx context.Context, fullKey []byte, ttlSeconds int) error {
+	return nil
 }
 
 func (t*implBoltStore) RemoveRaw(ctx context.Context, fullKey []byte) error {
